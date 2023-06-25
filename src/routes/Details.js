@@ -1,8 +1,9 @@
 import React from 'react';
+import Details from '../components/Info';
 
 const Categories = () => (
   <div>
-    okay ..
+    <Details />
   </div>
 );
 

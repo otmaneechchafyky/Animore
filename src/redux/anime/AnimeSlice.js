@@ -34,8 +34,16 @@ const animeSlice = createSlice({
       .addCase(fetchAnime.fulfilled, (state, action) => {
         state.loading = false;
         state.animeList = action.payload;
-        state.totalEpisodes += state.animeList.map((anime) => anime.episodeLength);
         // console.log(state.animeList);
+        // const calcTotal = () => {
+        //   let total = 0;
+        //   state.animeList.map((anime) => {
+        //     total += anime.episodeLength;
+        //     return total;
+        //   });
+        // };
+        // console.log(calcTotal());
+        // state.totalEpisodes = calcTotal();
       })
       .addCase(fetchAnime.rejected, (state) => {
         state.loading = false;
