@@ -6,7 +6,6 @@ const baseUrl = 'https://kitsu.io/api/edge';
 const initialState = {
   animeList: [],
   loading: true,
-  totalEpisodes: 0,
 };
 
 export const fetchAnime = createAsyncThunk('anime/fetchAnime', async (category) => {
@@ -34,16 +33,7 @@ const animeSlice = createSlice({
       .addCase(fetchAnime.fulfilled, (state, action) => {
         state.loading = false;
         state.animeList = action.payload;
-        // console.log(state.animeList);
-        // const calcTotal = () => {
-        //   let total = 0;
-        //   state.animeList.map((anime) => {
-        //     total += anime.episodeLength;
-        //     return total;
-        //   });
-        // };
-        // console.log(calcTotal());
-        // state.totalEpisodes = calcTotal();
+        console.log(state.animeList);
       })
       .addCase(fetchAnime.rejected, (state) => {
         state.loading = false;

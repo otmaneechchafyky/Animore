@@ -1,12 +1,15 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAnime } from '../redux/anime/AnimeSlice';
 import '../App.css';
 
 const AnimeCard = () => {
   const dispatch = useDispatch();
-  const total = useSelector((store) => store.anime.totalEpisodes);
+  const animeList = useSelector((store) => store.anime.animeList);
+
+  useEffect(() => {
+    dispatch(fetchAnime('Action,Comedy'));
+  }, [dispatch]);
 
   const categories = [
     'Action',
@@ -32,18 +35,35 @@ const AnimeCard = () => {
     'School',
     'Seinen',
   ];
+
   return (
     <div>
-      {categories.map((category) => (
-        <NavLink key={category} to="Details">
-          <button type="button" onClick={() => { dispatch(fetchAnime(category)); }}>
+      <div>
+        {categories.map((category) => (
+          <button
+            type="button"
+            key={category}
+            onClick={() => {
+              dispatch(fetchAnime(category));
+            }}
+          >
             {category}
-            {' '}
-            <strong>{total}</strong>
           </button>
-        </NavLink>
-
-      ))}
+        ))}
+      </div>
+      <ul>
+        {animeList.map((anime) => (
+          <div key={anime.id}>
+            <img
+              src={anime.posterImage.tiny}
+              alt={anime.canonicalTitle}
+              className="anime-image"
+            />
+            <li>{anime.canonicalTitle}</li>
+            <span>{anime.popularityRank}</span>
+          </div>
+        ))}
+      </ul>
     </div>
   );
 };
