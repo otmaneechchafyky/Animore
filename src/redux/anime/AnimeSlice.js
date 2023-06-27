@@ -5,6 +5,7 @@ const baseUrl = 'https://kitsu.io/api/edge';
 
 const initialState = {
   animeList: [],
+  anime: [],
   loading: true,
 };
 
@@ -16,6 +17,19 @@ export const fetchAnime = createAsyncThunk('anime/fetchAnime', async (category) 
       ...anime.attributes,
     }));
     return animeList;
+  } catch (error) {
+    return error;
+  }
+});
+
+export const fetchAnimeById = createAsyncThunk('anime/fetchAnimeById', async (animeId) => {
+  try {
+    const response = await axios.get(`${baseUrl}/anime/${animeId}`);
+    const animeData = {
+      id: response.data.data.id,
+      ...response.data.data.attributes,
+    };
+    return animeData;
   } catch (error) {
     return error;
   }
@@ -33,10 +47,19 @@ const animeSlice = createSlice({
       .addCase(fetchAnime.fulfilled, (state, action) => {
         state.loading = false;
         state.animeList = action.payload;
-        console.log(state.animeList);
       })
       .addCase(fetchAnime.rejected, (state) => {
         state.loading = false;
+      })
+      .addCase(fetchAnimeById.pending, (state) => {
+        state.loadingAnime = true;
+      })
+      .addCase(fetchAnimeById.fulfilled, (state, action) => {
+        state.loadingAnime = false;
+        state.anime = action.payload;
+      })
+      .addCase(fetchAnimeById.rejected, (state) => {
+        state.loadingAnime = false;
       });
   },
 });
