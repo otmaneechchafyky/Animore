@@ -9,9 +9,8 @@ const Navbar = () => (
       <NavLink to="/">
         <FaLessThan />
       </NavLink>
-      <span className="font-semibold">2023</span>
     </div>
-    <span className="font-light">Most Animes</span>
+    <span className="font-light">Anime Details</span>
     <div className="flex gap-4 items-center">
       <BiSolidMicrophone />
       <FiSettings />
