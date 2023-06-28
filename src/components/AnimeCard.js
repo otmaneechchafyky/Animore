@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { BsArrowRight } from 'react-icons/bs';
 import { useDispatch, useSelector } from 'react-redux';
+import { Spinner } from '@material-tailwind/react';
 import Navbar from './Navbar';
 import { fetchAnime, fetchAnimeById } from '../redux/anime/AnimeSlice';
 import '../App.css';
@@ -9,8 +10,7 @@ import '../App.css';
 const AnimeCard = () => {
   const dispatch = useDispatch();
   const animeList = useSelector((store) => store.anime.animeList);
-
-  console.log(animeList);
+  const isLoading = useSelector((store) => store.anime.loading);
 
   useEffect(() => {
     dispatch(fetchAnime('Action,Comedy'));
@@ -31,8 +31,16 @@ const AnimeCard = () => {
     'Mystery',
   ];
 
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center w-[100vw] h-[100vh]">
+        <Spinner className="h-12 w-12 text-sky-700" />
+      </div>
+    );
+  }
+
   return (
-    <div className="font-lato">
+    <div className="font-gill">
       <Navbar />
       <div>
         <div className="bg-gradient-to-b from-sky-500 to-sky-700 p-4 grid grid-cols-3 md:grid-cols-6 gap-2 md:gap-6 text-white">
@@ -49,7 +57,7 @@ const AnimeCard = () => {
             </button>
           ))}
         </div>
-        <p className="text-white bg-sky-800 p-1">Anime by Category</p>
+        <p className="text-white bg-sky-800 p-1 font-lato">Anime by Category</p>
         <ul className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
           {animeList.map((anime) => (
             <li key={anime.id} className="relative odd:bg-sky-700 even:bg-sky-600 text-white">
@@ -62,18 +70,20 @@ const AnimeCard = () => {
                 <Link to="Details" className="absolute top-2 left-38 p-2 font-bold bg-white text-sky-600 rounded-full hover:bg-sky-600 hover:text-white">
                   <BsArrowRight onClick={() => { dispatch(fetchAnimeById(anime.id)); }} className="h-6 w-6" />
                 </Link>
-                <h2 className="font-bold text-2xl">{anime.canonicalTitle.slice(0, 7)}</h2>
+                <h1 className="font-bold text-2xl uppercase">{anime.canonicalTitle.slice(0, 7)}</h1>
                 <p className="flex gap-1">
                   {anime.popularityRank}
-                  <span>Rank</span>
                 </p>
               </div>
             </li>
           ))}
         </ul>
       </div>
-      <footer className="text-sky-700 h-16 bg-white flex items-center justify-center">
-        Built by Otmane & Designed by Nelson Sakwa
+      <footer className="text-sky-700 h-16 bg-white flex gap-1 items-center justify-center">
+        Built by
+        <a href="https://www.linkedin.com/in/otmaneechchafyky/" className="underline text-sky-500">Otmane Echch</a>
+        & Designed by
+        <a href="https://www.behance.net/sakwadesignstudio" className="underline text-sky-500">Nelson Sakwa</a>
       </footer>
     </div>
   );

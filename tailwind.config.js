@@ -7,6 +7,7 @@ module.exports = {
     extend: {
       fontFamily: {
         lato: ['Lato', 'sans-serif'],
+        gill: ['Gill', 'sans-serif'],
       },
     },
   },
