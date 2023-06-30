@@ -73,7 +73,7 @@
 
 <!-- PRESENTATION DEMO -->
 
-## 🚀 Presentaion Demo <a name="live-demo"></a>
+## 🚀 Presentation Demo <a name="presentation-demo"></a>
 
 - [View Presentaion Demo](https://www.loom.com/share/84401a6bd6504e7685515490f8e532bd?sid=92a7eca8-1b1d-45da-bbb1-64444c7b4425)
 
