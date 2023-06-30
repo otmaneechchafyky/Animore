@@ -16,7 +16,7 @@ const Details = () => {
     <div>
       <Navbar />
       <div className="flex justify-between items-center pl-2 pt-2 pb-2 pr-8 bg-sky-600 text-white">
-        <img src={data.posterImage?.tiny} alt={data.canonicalTitle} className="w-32 border-white border-4 rounded" />
+        {data.posterImage?.tiny && <img src={data.posterImage?.tiny} alt={data.canonicalTitle} className="w-32 border-white border-4 rounded" />}
         <div className="flex flex-col items-end">
           <p className="font-bold text-2xl text-right uppercase">{data.canonicalTitle}</p>
           <p className="font-semibold text-lg flex items-center gap-1">
